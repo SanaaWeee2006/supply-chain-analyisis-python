@@ -28,10 +28,11 @@ dataset link - https://www.kaggle.com/datasets/saicharankomati/dataco-supply-cha
 ---
 <h2><a class="anchor" id="tools--technologies"></a>Tools & Technologies</h2>
 
-- SQL (Common Table Expressions (CTEs), Joins, Filtering)
-- Python (Pandas, Matplotlib, Seaborn, Scipy)
-- Github
-
+- Python (numpy, Pandas, Matplotlib, Seaborn)
+- Data Cleaning
+- Data Preparation
+- Data Transformation
+- Data Visualization
 ---
 <h2><a class="anchor" id="project-structure"></a>Project Structure</h2>
 
