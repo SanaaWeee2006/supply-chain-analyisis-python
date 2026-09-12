@@ -43,7 +43,7 @@ dataset link - https://www.kaggle.com/datasets/saicharankomati/dataco-supply-cha
 - Added order processing time columns for identifying delayed orders.
 
 ---
-<h2><a class="anchor" id="analysis">Analysis</a> 
+<h2><a class="anchor" id="analysis">Analysis</h2> 
   
 - Late Delivery Rate at 54.71% - More than half of all orders arrive late. This is not an edge-case problem- it is the default experience for the majority of customers.
 - $2.1M Profit at Risk - Orders that experienced delays collectively generated $2.1M in profit that is under constant pressure from further operational deterioration.
