@@ -34,100 +34,39 @@ dataset link - https://www.kaggle.com/datasets/saicharankomati/dataco-supply-cha
 - Data Transformation
 - Data Visualization
 ---
-<h2><a class="anchor" id="project-structure"></a>Project Structure</h2>
 
-```
-vendor-performance-analysis/
-│
-├── README.md
-├── .gitignore
-├── Vendor Performance Report.pdf
-│
-├── ingestion_db.py
-│   └── Ingests CSV files into the database
-│
-├── get_vendor_summary.py
-│   └── Generates a vendor summary table for analysis
-│
-├── exploratory_data_analysis.ipynb
-│   └── Exploratory data analysis and visualizations
-│
-└── vendor_performance_analysis.ipynb
-    └── Vendor performance analysis
-```
-
----
 <h2><a class="anchor" id="data-cleaning-preparation"></a>Data Cleaning & Preparation</h2>
 
-- Removed transactions with:
-  - Gross Profit <= 0
-  - Profit Margin <= 0
-  - Sales Quantity = 0
-- Created summary tables with vendor-level metrics
-- Converted data types, handles outliers, merged lookup tables
+- Removed columns which are empty, identical, or have only one value 
+- Filtered Cancelled orders from Delivery Status as they are no relevant for delivery time analysis
+- Hnadled missing values.
+- Added order processing time columns for identifying delayed orders.
 
 ---
-<h2><a class="anchor" id="exploratory-data-analysis"></a>Exploratory Data Analysis (EDA)</h2>
-
-**Negative or Zero Values Detected:**
-- Gross Profit: Min -52,00.78 (loss making sales)
-- Profit Margin: Min -inf (sales at zero or below cost)
-- Unsold Inventory: Indicating slow-moving stock
-
-**Outliers Identified:**
-- High Freight Costs (upto 257K)
-- Large Purchase/Actual Prices
-
-**Correlation Analysis:**
-- Weak between Purchases Price & Profit
-- Strong between Purchase Qty & Sales Qty
-- Negative between Profit Margin & Sales Price
+<h2><a class="anchor" id="analysis">Analysis</a> 
+  
+- Late Delivery Rate at 54.71% - More than half of all orders arrive late. This is not an edge-case problem- it is the default experience for the majority of customers.
+- $2.1M Profit at Risk - Orders that experienced delays collectively generated $2.1M in profit that is under constant pressure from further operational deterioration.
+- 90th Percentile Delay = 3 Days - Even the most extreme cases are contained within 3 days of lateness, suggesting the problem is systemic and process-driven rather than catastrophic.
+- Order-level profitability was classified into three tiers based on Order Profit Per Order. While 80.7% of orders are profitable, the 18.7% loss-making share represents a meaningful drag that is disproportionately concentrated among delayed shipments.
+- The delay distribution shows that 31.0% of all orders arrive exactly 1 day late the single largest cohort. Combined, orders delayed by 1-4 days account for 54.7% of all order volume, directly mapping to the overall.
+- First Class Shipping Mode causes 100% delay rate. Second Class causes 79.8%. Standard Class causes 39.8%. Same Day: 0%. The mode assignment logic is the most impactful single variable to fix.
+- Central Africa leads at 58.7% but all regions cluster between 55-59%. This rules out a localized logistics failure and confirms a company-wide systemic issue.
+- No segment receives preferential service. All customers - Consumer, Corporate, Home Office experience the same broken delivery promise.
+- Health & Beauty (56.9%) and Pet Shop (56.6%) Lead by Department - These departments marginally outpace others in delay rate, warranting an inventory and carrier audit for these product categories.
+- August and September are the highest months at 55.4%, with December close behind. These reflect mid-year promotions and Q4 holiday surge overwhelming fulfilment capacity. July represents a notable low-point (~53.75%), confirming seasonal variation is plannable.
 
 ---
-<h2><a class="anchor" id="research-questions--key-findings"></a>Research Questions & Key Findings</h2>
+<h2><a class="anchor" id="strategic-recommendations"></a>Strategic Recommendations</h2>
 
-1. **Brands for Promotions:** 198 brands with low sales but high profit margins
-2. **Top Vendors:** Top 10 Vendors contribute approximately 65% of purchases. **This possess risk of over-reliance**
-3. **Bulk Purchasing Impact:** Vendors buying in bulk get the lowest Unit purchase price, hence reducing cost per unit.
-4. **Inventory Turnover:** $2.71M worth of unsold inventory
-5. **Vendor Profitability:**
-       - High Profit Vendors: Mean Margin = 31.17%
-       - Low Profit vendors: Mean Margin = 41.55%
-6. **Hypotheseis Testing:** Statistically significant difference in profit margins. **This highlights the need to diversify vendor strategies.**
+- Immediately Audit First Class & Second-Class Shipping Capacity
+- Deploy the Predictive Alert System
+- Resolve Payment Processing Bottlenecks
+- Develop Seasonal Surge Capacity Plans
+- Default to Standard Class for Eligible Orders
+- Investigate High-Delay Departments in Africa
 
----
-<h2><a class="anchor" id="Power-BI-dashboard"></a>Dashboard</h2>
-
-dashboard link: https://github.com/SanaaWeee2006/vendor-performance-analysis-sql-python/blob/main/vendor_performance_analysis_dashboard.pbix <br>
-image - https://github.com/SanaaWeee2006/vendor-performance-analysis-sql-python/blob/main/dashboard.png
-
----
-<h2><a class="anchor" id="how-to-run-this-project"></a>How to Run This Project</h2>
-
-1. Clone the repository:
-```bash
-git clone https://github.com/SanaaWeee2006/vendor-performance-analysis-sql-python.git
-```
-2. Load the CSVs and ingest into database:
-```bash
-python ingestion_db.py
-```
-3. Create vendor summary table:
-```bash
-python get_vendor_summary.py
-```
-5. Open and run notebooks:
-   - 'exploratory_data_analysis.ipynb'
-   - 'vendor_performance_analysis.ipynb'
-
-
----
-<h2><a class="anchor" id="final-recommendations"></a>Final Recommendations</h2>
-
-- Diversify vendor base to reduce risk
-- Optimize bulk order strategies
-- Reprice slow-moving, high-margin brands
-- clear unsold inventory strategically
+- This analysis has surfaced a clear and urgent picture: a global e-commerce operation where the majority of orders (54.71%) fail to meet their promised delivery windows, costing $2.1M in at-risk profit and undermining customer trust at scale.
 
 ---
 <h2><a class="anchor" id="author--contact"></a>Author & Contact</h2>
